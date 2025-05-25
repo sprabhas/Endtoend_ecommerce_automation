@@ -21,7 +21,11 @@ public class Airindia_site_automation {
 		driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click();
 		driver.findElement(By.xpath("//div[@id='dropdownGroup1']//div[@class='dropdownDiv']//a[@value='IXB']")).click();
 		driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT")).click();
-		driver.findElement(By.xpath("//div[@id='dropdownGroup1']//div[@class='dropdownDiv']//a[@value='JLR']")).click();
+		driver.findElement(By.xpath("//div[@id='dropdownGroup1']//div[@class='dropdownDiv']//a[@value='DED']")).click();
+		
+		driver.findElement(By.xpath("//div[@class='ui-datepicker-group ui-datepicker-group-first']//a[text()='14']")).click();
+		driver.findElement(By.id("ctl00_mainContent_view_date2")).click();
+		driver.findElement(By.xpath("//div[@class='ui-datepicker-group ui-datepicker-group-last']//a[text()='15']")).click();
 		
 		Thread.sleep(1000);
 		driver.findElement(By.id("autosuggest")).sendKeys("ind");
@@ -30,6 +34,7 @@ public class Airindia_site_automation {
 		for (WebElement option : suggItems ) {
 			//option contains the individual elements
 			if(option.getText().equalsIgnoreCase("India")) {
+				//System.out.println(option.getText());
 				option.click();
 				break;	
 			}
