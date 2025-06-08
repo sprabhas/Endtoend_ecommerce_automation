@@ -1,37 +1,29 @@
 package NaveenAutomationLabs.NaveenAutomationSite;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 public class Sausedemo_practice {
 
 	public static void main(String[] args) throws InterruptedException {		
 		
-		 ChromeOptions options = new ChromeOptions();
-		 Map<String, Object> prefs = new HashMap<String, Object>();
-		 prefs.put("credentials_enable_service", false);
-		 prefs.put("password_manager_enabled", false);
-		 Map<String, Object> profile = new HashMap<String, Object>();
-		 profile.put("password_manager_leak_detection", false);
-		 prefs.put("profile", profile);
-		 options.setExperimentalOption("prefs", prefs);
-		  
-		 WebDriver driver = new ChromeDriver(options);
+		
+		 WebDriver driver = new ChromeDriver();
 		 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));		 
 		 JavascriptExecutor js = (JavascriptExecutor)driver;		 
 		 driver.get("https://www.saucedemo.com/");
 		 String pageTitle = driver.getTitle();
-		 //System.out.println(pageTitle);
+		 
 		 Assert.assertEquals(pageTitle, "Swag Labs" , "Page title is incorrect");
 						
 		 String btnText = driver.findElement(By.id("login-button")).getDomAttribute("value");
@@ -48,8 +40,11 @@ public class Sausedemo_practice {
 		 driver.findElement(By.id("password")).sendKeys("secret_sauce");
 		 driver.findElement(By.id("login-button")).click();
 		
-		 WebElement selFil = driver.findElement(By.className("product_sort_container"));		 
+		 WebElement selFil = driver.findElement(By.className("product_sort_container"));
+		 
 		 Select selFilter = new Select(selFil);
+		 
+		 
 		 WebElement firstOption = selFilter.getFirstSelectedOption();	 
 		 Assert.assertEquals(firstOption.getText(), "Name (A to Z)" , "The option A to Z is not selected");
 		 
@@ -89,8 +84,11 @@ public class Sausedemo_practice {
 	     WebElement sortFilter = driver.findElement(By.className("product_sort_container"));		 
 		 Select sortFiltersel = new Select(sortFilter);
 		 sortFiltersel.selectByValue("lohi");
+		 
+		////select[@class='product_sort_container']//option[@value='lohi']
 	    
 	     List<WebElement> itemsPrice = driver.findElements(By.className("inventory_item_price"));
+	     
 	     ArrayList<Double> priceList = new ArrayList();
 	     	    
 	     for (int i = 0 ; i < itemsPrice.size() ; i ++ ) {
@@ -100,22 +98,25 @@ public class Sausedemo_practice {
 	    	     	
 	     }  
 	     
+	     
+	     //[4,5,6,45]
+	    		 
+	    		 
 	     boolean isSorted = true;
 	     for(int j = 0 ; j < priceList.size()-1 ; j ++) {
 	    	 if(priceList.get(j) > priceList.get(j + 1)) {
 	    		 isSorted = false;
-	    		 break;
-	    		 
+	    		 break;	 
 	    	 }
 	    	 
 	     }
-	     
+	      
 	     if(isSorted) {
 	    	 System.out.println("items are sorted");
 	     }else {
 	    	 System.out.println("items are not sorted");
 	     }
-	     
+	     driver.close();
 	}
 
 	
